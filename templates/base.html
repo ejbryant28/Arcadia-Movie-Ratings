@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ratings</title>
+	
+</head>
+<body>
+	<a href="/">Ratings</a> |
+	
+	{% if session.get("user_id") %}
+		<a href="/logout">Log Out</a> 
+	{% else %}
+		<a href="/login">Log In</a>
+	{% endif %} 
+	
+	| <a href="/new-user">Add new user</a>
+	<hr>
+
+	{% for message in get_flashed_messages() %}
+		<h2> <font color="red"> {{ message }} </font></h2>
+	{% endfor %}
+
+	{% block content %} Things {% endblock %}
+
+
+
+</body>
+</html>

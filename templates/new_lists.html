@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form action='/make-list' method='POST'>
+	List Name: 
+	<input type="text" name="list_name" required><br><br>
+
+	{% for movie in movies %}
+	<input type="checkbox" name="movies" value={{ movie.movie_id }}> {{ movie.title }}<br>
+	{% endfor %}
+
+	<input type="submit" name="Make List">
+</form>
+
+{% endblock %}

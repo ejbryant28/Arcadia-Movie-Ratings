@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Add new user:</h2>
+	<form action="/add_user" method="POST">
+		Username:<br>
+		<input type="text" name="username" required><br><br>
+		Password:<br>
+		<input type="password" name="password" required><br><br>
+		<br><br><input type="submit">
+	</form>
+
+{% endblock %}

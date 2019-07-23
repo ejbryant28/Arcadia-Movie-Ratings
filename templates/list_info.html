@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% for movie in movies %}
+{% if movie[1] %}}
+{{ movie[0].title }} {{ movie[1] }}<br>
+
+{% else %}
+{{ movie[0].title }} 
+Add rating:
+<form>
+    <input type="radio" name="score" value=1> 1
+    <input type="radio" name="score" value=2> 2
+    <input type="radio" name="score" value=3> 3
+    <input type="radio" name="score" value=4> 4
+    <input type="radio" name="score" value=5> 5
+    <input type="submit" name="submit" id="add-rating-{{ movie[0].movie_id }}" onclick="addRating({{ movie[0].movie_id }})">
+</form>
+{% endif %}
+{% endfor %}
+
+    <script type="text/javascript">
+        function addRating(movie_id) {
+            console.log(movie_id)
+            document.post("/add_rating", movie_id)
+        }
+    </script>
+{% endblock %}
