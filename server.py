@@ -18,10 +18,6 @@ app.jinja_env.undefined = StrictUndefined
 def index():
     """ Homepage """
 
-    # new_list = MovieList(user_id = 1, list_name = 'test', movie_id = 1299)
-    # db.session.add(new_list)
-    # db.session.commit()
-
     return render_template("homepage.html")
 
 
@@ -30,8 +26,6 @@ def add_user_form():
     """Show new user form"""
 
     return render_template("add_user.html")
-
-
 
 
 @app.route('/login')
@@ -44,6 +38,7 @@ def login_page():
 @app.route('/logout')
 def logout_page():
     """Log user out"""
+    #TODO: use ajax to do this
 
     return render_template('logout.html')
 
@@ -96,7 +91,6 @@ def list_info(list_name):
 def add_user():
     """Add new user to database."""
     
-
     username = request.form.get("username")
     password = request.form.get("password")
 
@@ -129,9 +123,8 @@ def user_login():
 
     if user_info is None:
         #flash you don't exist 
-        flash("""You don't exist. Are you a ghost?
-                Or did you type your username wrong?""")
-        return redirect('/')
+        flash("""That username isn't in the database. Do you want to sign up?""")
+        return redirect('/new-user')
 
     elif user_info.password == password:
         # go to homepage
@@ -142,13 +135,15 @@ def user_login():
         return redirect('/')
 
     else:
-        flash("Wrong password. Try again. Be careful. Jeeeeezeeee")
+        flash("Oops. Why don't you try that password again?")
         return redirect('/login')
 
 
 @app.route('/logout-do')
 def user_logout():
     """Log user out"""
+
+    #TODO: use ajax for this
 
     del session['user_id']
 
@@ -181,12 +176,11 @@ def make_list():
 def add_rating(movie_id):
     """ add new rating to database """
 
-    print("IT WORKED")
     user_id = session["user_id"]
+    new_rating = Rating(movie_id = movie_id, score = score, user_id = user_id)
+    db.session.add(new_rating)
+    db.session.commit()
     return redirect('/')
-    # new_rating = Rating(movie_id = movie_id, score = score, user_id = user_id)
-    # db.session.add(new_rating)
-    # db.session.commit()
 
 
 

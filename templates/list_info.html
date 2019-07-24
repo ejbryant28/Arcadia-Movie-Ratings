@@ -6,7 +6,7 @@
 {{ movie[0].title }} {{ movie[1] }}<br>
 
 {% else %}
-{{ movie[0].title }} 
+{{ movie[0].title }} <br>
 Add rating:
 <form>
     <input type="radio" name="score" value=1> 1
@@ -16,13 +16,21 @@ Add rating:
     <input type="radio" name="score" value=5> 5
     <input type="submit" name="submit" id="add-rating-{{ movie[0].movie_id }}" onclick="addRating({{ movie[0].movie_id }})">
 </form>
+<br>
 {% endif %}
 {% endfor %}
 
     <script type="text/javascript">
         function addRating(movie_id) {
-            console.log(movie_id)
-            document.post("/add_rating", movie_id)
+            console.log(`string ${movie_id}`)
+            document.getElementById(`add-rating-${movie_id}`).post("/add-rating", movie_id);
+            // TODO: get the value submitted along with the movie id
+            // TODO: make post work
         }
     </script>
+    {# TODO: The user should be able to sort the movies by name or rating.
+    The user should be able to filter the movies by title.
+    The user should be able to remove a movie from the list.
+    The user should be able to add a movie to the list.
+    The view should display the average rating of all of its movies.#}
 {% endblock %}
