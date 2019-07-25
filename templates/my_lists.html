@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% for list in meta_lists %}
+<a href="/list/{{list[0].list_name }}">{{ list[0].list_name }}</a>
+ | {{ list[1] }} movies<br> 
+
+{% endfor %}
+
+{% endblock %}
